@@ -7,7 +7,7 @@
     <% if params[:topic_id].present? %>
       <%= render post %>
     <p>
-      <%= link_to "Show this post", topic_posts_path(@topic,post) %>
+      <%= link_to "Show this post", topic_post_path(@topic,post) %>
     </p>
     <%else %>
       <%= render post %>
