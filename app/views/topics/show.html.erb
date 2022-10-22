@@ -1,10 +1,34 @@
 <p style="color: green"><%= notice %></p>
 
-<%= render @topic %>
+<%#= render @topic %>
 
-<div>
-  <%= link_to "Edit this topic", edit_topic_path(@topic) %> |
-  <%= link_to "Back to topics", topics_path %>
+<div class="container">
+  <div class="card" style="width: 25rem;">
+    <div class="card-body">
+      <h5 class="card-title">Topic</h5>
+      <p>
+        <strong>Field:</strong>
+        <%= @topic.field %>
+      </p>
+      <div class="row">
+        <div class="col"><%= button_to "Edit", edit_topic_path(@topic),class:"btn btn-primary",method: "get" %></div>
+        <div class="col"><%= button_to "Back", topics_path,class:"btn btn-primary",method: "get" %></div>
+        <div class="col"><%= button_to "Add post", topic_posts_path(@topic),class:"btn btn-primary",method: "get" %></div>
 
-  <%= button_to "Destroy this topic", @topic, method: :delete %>
+
+      </div>
+    </br>
+      <%= button_to "Destroy this topic", @topic, method: :delete,class:"btn btn-danger",method: "delete" %>
+    </div>
+  </div>
+
+
 </div>
+
+<!--<div>-->
+<!--  <%#= link_to "Edit this topic", edit_topic_path(@topic) %> |-->
+  <%#= link_to "Back to topics", topics_path %>
+  <%#= link_to "Add post", topic_posts_path(@topic) %>
+
+  <%#= button_to "Destroy this topic", @topic, method: :delete %>
+<!--</div>-->

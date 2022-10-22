@@ -1,14 +1,25 @@
 <p style="color: green"><%= notice %></p>
-
 <h1>Topics</h1>
+<table class="table ">
+  <thead>
+  <tr>
+    <th scope="col" colspan="1">Title</th>
+    <th scope="col" colspan="1"></th>
+  </tr>
+  </thead>
+  <tbody>
+  <div id="topics">
+    <% @topics.each do |topic| %>
+  <tr>
 
-<div id="topics">
-  <% @topics.each do |topic| %>
-    <%= render topic %>
-    <p>
-      <%= link_to "Show this topic", topic %>
-    </p>
-  <% end %>
-</div>
+        <td ><%= topic.field %></td>
+        <td><%= button_to "Show this topic",topic,method: "get",class:"btn btn-primary" %></td>
+      <% end %>
 
-<%= link_to "New topic", new_topic_path %>
+  </tr>
+  </div>
+
+  </tbody>
+</table>
+<%= button_to "New topic", new_topic_path,method: "get",class:"btn btn-primary" %>
+<%#= link_to "Posts",posts_path %>
