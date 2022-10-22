@@ -39,7 +39,8 @@ class PostsController < ApplicationController
   # POST /posts or /posts.json
   def create
     if params[:topic_id].present?
-      @post = @topic.posts.build(post_params)
+      @post = @topic.posts.build(post_params.except(:tags))
+      create_or_delete_posts_tags(@post,params[:post][:tags])
       respond_to do |format|
         if @post.save
           format.html { redirect_to topic_posts_path(@topic), notice: "Post was successfully created." }
@@ -50,7 +51,8 @@ class PostsController < ApplicationController
         end
       end
     else
-      @post=Post.new(post_params)
+      @post=Post.new(post_params.except(:tags))
+      create_or_delete_posts_tags(@post,params[:post][:tags])
       respond_to do |format|
         if @post.save
           format.html { redirect_to posts_path, notice: "Post was successfully created." }
@@ -71,7 +73,8 @@ class PostsController < ApplicationController
   def update
     if params[:topic_id].present?
       respond_to do |format|
-        if @post.update(post_params)
+        if @post.update(post_params.except(:tags))
+          create_or_delete_posts_tags(@post,params[:post][:tags])
           format.html { redirect_to topic_posts_path(@topic), notice: "Post was successfully updated." }
           format.json { render :show, status: :ok, location: @post }
         else
@@ -81,7 +84,8 @@ class PostsController < ApplicationController
         end
       else
         respond_to do |format|
-          if @post.update(post_params)
+          if @post.update(post_params.except(:tags))
+            create_or_delete_posts_tags(@post,params[:post][:tags])
             format.html { redirect_to post_path(@post), notice: "Post was successfully updated." }
             format.json { render :show, status: :ok, location: @post }
           else
@@ -115,6 +119,13 @@ class PostsController < ApplicationController
   end
 
   private
+  def create_or_delete_posts_tags(post,tags)
+    post.taggables.destroy_all
+    tags=tags.strip.split(',')
+    tags.each do |tag|
+      post.tags << Tag.find_or_create_by(name: tag)
+    end
+  end
   def get_post
     if params[:topic_id].present?
       @topic=Topic.find(params[:topic_id])
@@ -135,9 +146,9 @@ class PostsController < ApplicationController
     # Only allow a list of trusted parameters through.
     def post_params
       if params[:topic_id].present?
-        params.require(:post).permit(:title, :body, :topic_id)
+        params.require(:post).permit(:title, :body, :topic_id, :tags)
       else
-        params.require(:post).permit(:title, :body)
+        params.require(:post).permit(:title, :body, :tags)
 
       end
 

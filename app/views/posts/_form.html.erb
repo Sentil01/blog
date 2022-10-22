@@ -20,9 +20,12 @@
     <%= form.label :body, style: "display: block" %>
     <%= form.text_area :body %>
   </div>
+  <div>
+    <%= form.label :tag, style: "display: block" %>
+    <%= form.text_field :tags,value: post.tags.map(&:name).join(",") %>
+  </div>
 
   <div>
-
     <%= form.text_field :topic_id ,type:"hidden"%>
   </div>
 

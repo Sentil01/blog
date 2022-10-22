@@ -8,6 +8,13 @@
     <%= comment.body %>
   </p>
   <%end %>
+<strong>Tags:</strong>
+<% @post.tags.each do |tag| %>
+    <%= link_to tag do %>
+       <p><%= tag.name %><p>
+      <%end %>
+<%end %>
+
 <div>
   <%= link_to "Edit this post", params[:topic_id].present? ? edit_topic_post_path(@topic,@post) : edit_post_path(@post) %> |
   <%= link_to "Add Comments",new_post_comment_path(@post,@comment) %>
