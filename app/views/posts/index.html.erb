@@ -5,11 +5,13 @@
 <div id="posts">
   <% @posts.each do |post| %>
     <% if params[:topic_id].present? %>
+      <h2><%= post.title %>(<%=post.topic.field %>)</h2>
       <%= render post %>
-    <p>
+      <p>
       <%= link_to "Show this post", topic_post_path(@topic,post) %>
     </p>
     <%else %>
+      <h2><%= post.inspect %></h2>
       <%= render post %>
       <p>
         <%= link_to "Show this post",post_path(post)%>
@@ -21,3 +23,4 @@
 </div>
 
 <%= link_to "New post", params[:topic_id].present? ? new_topic_post_path(@topic) : new_post_path %>
+<%= will_paginate @posts %>

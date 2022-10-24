@@ -5,9 +5,9 @@ class PostsController < ApplicationController
   # GET /posts or /posts.json
   def index
     if params[:topic_id].present?
-      @posts = @topic.posts
+      @posts = @topic.posts.paginate(page: params[:page],per_page: 2)
     else
-      @posts=Post.all
+      @posts=Post.all.paginate(page: params[:page],per_page: 2)
 
     end
 
