@@ -1,0 +1,9 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @rating %>
+
+<div>
+  <%= link_to "Back to Posts",params[:topic_id].present? ? topic_posts_path(@topic) : posts_path %>
+
+  <%= button_to "Destroy this rating", post_rating_path(@post,@rating), method: :delete %>
+</div>

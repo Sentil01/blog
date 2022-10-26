@@ -1,0 +1,43 @@
+<%= form_with(model:[@post,rating],local: true) do |form| %>
+  <% if rating.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(rating.errors.count, "error") %> prohibited this rating from being saved:</h2>
+
+      <ul>
+        <% rating.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div style="display:inline-block">
+    <div>
+      <%= form.radio_button :star,1%>
+      <%= form.label :star,"1"%>
+    </div>
+  <div>
+    <%= form.radio_button :star,2%>
+    <%= form.label :start,"2" %>
+  </div><div>
+  <%= form.radio_button :star,3%>
+  <%= form.label :start,"3" %>
+</div><div>
+  <%= form.radio_button :star,4%>
+  <%= form.label :start,"4" %>
+</div><div>
+  <%= form.radio_button :star,5%>
+  <%= form.label :start,"5" %>
+</div>
+
+  </div>
+
+  <div>
+
+    <%= form.text_field :post_id,type:"hidden" %>
+  </div>
+
+  <div>
+    <%= form.submit "Update" %>
+  </div>
+<% end %>

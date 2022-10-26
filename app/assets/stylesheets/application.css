@@ -1,6 +1,9 @@
 /*.nav-link{*/
 /*    color:red;*/
 /*}*/
+.checked {
+    color: orange;
+}
 /*
  * This is a manifest file that'll be compiled into application.css, which will include all the files
  * listed below.

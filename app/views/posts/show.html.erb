@@ -14,7 +14,28 @@
        <p><%= tag.name %><p>
       <%end %>
 <%end %>
+<!--<strong>Ratings</strong>-->
+<!--<br />-->
+<%# @post.ratings.group(:star).count.each do |value,count| %>
 
+  <%# for i in (1..value) do %>
+<!--    <span class="fa fa-star checked"></span>-->
+  <%#end %>
+  <%# for i in (1..(5-value)) do %>
+<!--    <span class="fa fa-star "></span>-->
+  <%#end %>
+  <%#= count %>
+<!--  <br />-->
+
+<%# end %>
+<%# @post.ratings.each do |rating| %>
+
+  <%#= link_to "Edit ratings",post_rating_path(@post,rating) %>
+<!--  <br />-->
+<%# end %>
+
+
+<%= link_to "Add ratings",new_post_rating_path(@post) %>
 <div>
   <%= link_to "Edit this post", params[:topic_id].present? ? edit_topic_post_path(@topic,@post) : edit_post_path(@post) %> |
   <%= link_to "Add Comments",new_post_comment_path(@post,@comment) %>

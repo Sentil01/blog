@@ -1,4 +1,9 @@
 Rails.application.routes.draw do
+  resources :posts do
+    resources :ratings
+
+  end
+
   resources :tags
 
   resources :topics do

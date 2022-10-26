@@ -7,12 +7,36 @@
     <% if params[:topic_id].present? %>
       <h2><%= post.title %>(<%=post.topic.field %>)</h2>
       <%= render post %>
+
+
+      <% post.ratings.group(:star).count.each do |value,count| %>
+
+        <% for i in (1..value) do %>
+          <span class="fa fa-star checked"></span>
+        <%end %>
+        <% for i in (1..(5-value)) do %>
+          <span class="fa fa-star "></span>
+        <%end %>
+        <%= count %>
+        <br />
+      <% end %>
       <p>
       <%= link_to "Show this post", topic_post_path(@topic,post) %>
     </p>
     <%else %>
-      <h2><%= post.inspect %></h2>
+
       <%= render post %>
+      <% post.ratings.group(:star).count.each do |value,count| %>
+
+        <% for i in (1..value) do %>
+          <span class="fa fa-star checked"></span>
+        <%end %>
+        <% for i in (1..(5-value)) do %>
+          <span class="fa fa-star "></span>
+        <%end %>
+        <%= count %>
+        <br />
+      <% end %>
       <p>
         <%= link_to "Show this post",post_path(post)%>
       </p>

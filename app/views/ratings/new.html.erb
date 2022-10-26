@@ -1,0 +1,9 @@
+<h1>Ratings</h1>
+
+<%= render "form", rating: @rating %>
+
+<br>
+
+<div>
+  <%= link_to "Back to posts", params[:topic_id].present? ? topic_posts_path(@topic) : posts_path %>
+</div>

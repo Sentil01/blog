@@ -3,4 +3,5 @@ class Post < ApplicationRecord
   has_many :comments,dependent: :destroy
   has_many :taggables,dependent: :destroy
   has_many :tags,through: :taggables
+  has_many :ratings
 end
