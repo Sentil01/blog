@@ -4,4 +4,5 @@ class Post < ApplicationRecord
   has_many :taggables,dependent: :destroy
   has_many :tags,through: :taggables
   has_many :ratings
+  has_one_attached :cover_picture
 end

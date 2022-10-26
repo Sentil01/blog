@@ -146,9 +146,9 @@ class PostsController < ApplicationController
     # Only allow a list of trusted parameters through.
     def post_params
       if params[:topic_id].present?
-        params.require(:post).permit(:title, :body, :topic_id, :tags)
+        params.require(:post).permit(:title, :body, :topic_id, :tags, :cover_picture)
       else
-        params.require(:post).permit(:title, :body, :tags)
+        params.require(:post).permit(:title, :body, :tags, :cover_picture)
 
       end
 

@@ -24,6 +24,11 @@
     <%= form.label :tag, style: "display: block" %>
     <%= form.text_field :tags,value: post.tags.map(&:name).join(",") %>
   </div>
+  <br />
+  <div>
+    <%= form.label :"Cover Picture", style: "display: block" %>
+    <%= form.file_field :cover_picture%>
+  </div>
 
   <div>
     <%= form.text_field :topic_id ,type:"hidden"%>

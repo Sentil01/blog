@@ -1,5 +1,7 @@
 <div id="<%= dom_id post %>">
-
+  <% if post.cover_picture.attached? %>
+    <%= image_tag post.cover_picture  %>
+  <%end %>
 
   <p>
     <strong>Title:</strong>
