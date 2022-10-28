@@ -5,7 +5,7 @@
 </br>
 <% @post.comments.each do |comment| %>
   <p>
-    <%= comment.body %>
+    <%= comment.body %> | By: <%= comment.user.email if comment.user %>
   </p>
   <%end %>
 <strong>Tags:</strong>

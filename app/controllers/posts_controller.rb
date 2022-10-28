@@ -1,8 +1,9 @@
 class PostsController < ApplicationController
   before_action :authenticate_user!
+
   before_action :get_post
   before_action :set_post, only: %i[ show edit update destroy ]
-
+  # before_action :get_user
   # GET /posts or /posts.json
   def index
     if params[:topic_id].present?
@@ -120,6 +121,7 @@ class PostsController < ApplicationController
   end
 
   private
+
   def create_or_delete_posts_tags(post,tags)
     post.taggables.destroy_all
     tags=tags.strip.split(',')
@@ -134,22 +136,27 @@ class PostsController < ApplicationController
     end
 
   end
+
     # Use callbacks to share common setup or constraints between actions.
     def set_post
       if params[:topic_id].present?
         @post = @topic.posts.find(params[:id])
+
       else
         @post=Post.find(params[:id])
+
       end
 
     end
-
+  # def get_user
+  #   @user=User.find(params[:@post.user_id])
+  # end
     # Only allow a list of trusted parameters through.
     def post_params
       if params[:topic_id].present?
-        params.require(:post).permit(:title, :body, :topic_id, :tags, :cover_picture)
+        params.require(:post).permit(:title, :body, :topic_id, :tags, :cover_picture, :user_id)
       else
-        params.require(:post).permit(:title, :body, :tags, :cover_picture)
+        params.require(:post).permit(:title, :body, :tags, :cover_picture, :user_id)
 
       end
 

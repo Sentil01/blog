@@ -33,7 +33,10 @@
   <div>
     <%= form.text_field :topic_id ,type:"hidden"%>
   </div>
-
+  <div>
+    <%= form.text_field :user_id,value:current_user.id,type:"hidden" %>
+  </div>
+<%#= current_user.inspect %>
   <div>
     <%= form.submit %>
   </div>
