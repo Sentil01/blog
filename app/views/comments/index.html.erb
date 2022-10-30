@@ -4,6 +4,7 @@
 
 <div id="comments">
   <% @comments.each do |comment| %>
+    By: <%= comment.user.email if comment.user %>
     <%= render comment %>
     <p>
       <%= link_to "Show this comment", post_comment_path(@post,comment) %>

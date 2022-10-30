@@ -1,8 +1,8 @@
 <p style="color: green"><%= notice %></p>
 
 <%#= render @topic %>
-
-<div class="container">
+<br />
+<div class="container col-4 mt-4">
   <div class="card" style="width: 25rem;">
     <div class="card-body">
       <h5 class="card-title">Topic</h5>
@@ -13,7 +13,7 @@
       <div class="row">
         <div class="col"><%= button_to "Edit", edit_topic_path(@topic),class:"btn btn-primary",method: "get" %></div>
         <div class="col"><%= button_to "Back", topics_path,class:"btn btn-primary",method: "get" %></div>
-        <div class="col"><%= button_to "Add post", topic_posts_path(@topic),class:"btn btn-primary",method: "get" %></div>
+        <div class="col"><%= button_to "Posts", topic_posts_path(@topic),class:"btn btn-primary",method: "get" %></div>
 
 
       </div>

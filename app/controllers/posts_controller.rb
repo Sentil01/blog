@@ -1,6 +1,7 @@
 class PostsController < ApplicationController
-  before_action :authenticate_user!
+  # load_and_authorize_resource
 
+  before_action :authenticate_user!
   before_action :get_post
   before_action :set_post, only: %i[ show edit update destroy ]
   # before_action :get_user
@@ -161,4 +162,10 @@ class PostsController < ApplicationController
       end
 
     end
+  # rescue_from CanCan::AccessDenied do | exception |
+  #   respond_to do |format|
+  #     format.json { head :forbidden }
+  #     format.html { redirect_to posts_path, alert: exception.message }
+  #   end
+  # end
 end

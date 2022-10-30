@@ -1,10 +1,11 @@
-<h1>Editing topic</h1>
+<h1 class="text-center mt-4">Edit topic</h1>
 
-<%= render "form", topic: @topic %>
+
 
 <br>
-
-<div>
+<div class="container col-5 mt-4">
+  <%= render "form", topic: @topic %>
+  <br />
   <%= link_to "Show this topic", @topic %> |
   <%= link_to "Back to topics", topics_path %>
 </div>

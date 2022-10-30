@@ -1,22 +1,47 @@
-<div id="<%= dom_id post %>">
+<div class="card" style="width: 18rem;">
+
   <% if post.cover_picture.attached? %>
-    <%= image_tag post.cover_picture  %>
+    <%= image_tag post.cover_picture,class:"card-img-top"  %>
   <%end %>
+  <div class="card-body">
+    <% if params[:topic_id].present? %>
+      <h5 class="card-title"><%= post.title %>(<%=post.topic.field %>)</h5>
+    <%end %>
 
-  <p>
-    <strong>Title:</strong>
-    <%= post.title %>
-  </p>
+    <p class="card-text">
+    <p>
+      <strong>Title:</strong>
+      <%= post.title %>
+    </p>
 
-  <p>
-    <strong>Body:</strong>
-    <%= post.body %>
-  </p>
+    <p>
+      <strong>Body:</strong>
+      <%= post.body %>
+    </p>
 
-  <p>
-    <strong>Created By:</strong>
-    <%= post.user.email if post.user %>
-  </p>
+    <p>
+      <strong>Created By:</strong>
+      <%= post.user.email if post.user %>
+    </p>
+    <% post.ratings.group(:star).count.each do |value,count| %>
 
-
-</div>
+      <% for i in (1..value) do %>
+        <span class="fa fa-star" style="color:orange"></span>
+      <%end %>
+      <% for i in (1..(5-value)) do %>
+        <span class="fa fa-star "></span>
+      <%end %>
+      <%= count %>
+      <br />
+    <% end %>
+    </p>
+    <% if params[:topic_id].present? %>
+      <p>
+        <%= link_to "Show this post", topic_post_path(@topic,post),class:"btn btn-primary" %>
+      </p>
+    <%else %>
+      <p>
+        <%= link_to "Show this post",post_path(post)%>
+      </p>
+     <%end %>
+  </div>
