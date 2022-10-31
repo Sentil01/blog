@@ -1,7 +1,7 @@
 <h1 class="text-center mt-4">Edit post</h1>
 <br/>
 
-<div class="container col-5 mt-4>
+<div class="container col-5 mt-4">
   <%= render "form", post: @post %>
   <%= link_to "Show this post", params[:topic_id].present? ? [@topic,@post] :post_path(@post) %> |
   <%= link_to "Back to posts", params[:topic_id].present? ? topic_posts_path(@topic) : posts_path %>

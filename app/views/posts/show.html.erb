@@ -1,45 +1,103 @@
 <p style="color: green"><%= notice %></p>
+<div class="container">
+<div class="position-relative ">
+  <div class="position-relative top-0 start-0">
+    <% if params[:topic_id].present? %>
+      <h5 class="card-title"><%= @post.title %>(<%=@post.topic.field %>)</h5>
+    <%end %>
+    <p>
+      <strong>Title:</strong>
+      <%= @post.title %>
+    </p>
+  </div>
 
-<%= render @post %>
-<strong>Comments:</strong>
-</br>
-<% @post.comments.each do |comment| %>
-  <p>
-    <%= comment.body %> | By: <%= comment.user.email if comment.user %>
-  </p>
-  <%end %>
-<strong>Tags:</strong>
-<% @post.tags.each do |tag| %>
-    <%= link_to tag do %>
-       <p><%= tag.name %><p>
+  <div class="position-absolute top-0 end-0">
+    <p>
+      <strong>Created By:</strong>
+      <%= @post.user.email if @post.user %>
+    </p>
+  </div>
+
+</div>
+<!--<div class="col">-->
+  <%#= render @post %>
+
+<!--</div>-->
+
+<div class="row mt-4">
+  <div class="col">
+    <% if @post.cover_picture.attached? %>
+      <%= image_tag @post.cover_picture,class:"card-img-top"  %>
+    <%end %>
+
+  </div>
+
+
+
+
+  <div class="col">
+    <div class="row">
+    <div class="col-6 ms-4">
+      <strong>Comments:</strong>
+      </br>
+      <% @post.comments.each do |comment| %>
+        <p>
+          <%= comment.body %> | By: <%= comment.user.email if comment.user %>
+        </p>
       <%end %>
-<%end %>
-<!--<strong>Ratings</strong>-->
-<!--<br />-->
-<%# @post.ratings.group(:star).count.each do |value,count| %>
-
-  <%# for i in (1..value) do %>
-<!--    <span class="fa fa-star checked"></span>-->
-  <%#end %>
-  <%# for i in (1..(5-value)) do %>
-<!--    <span class="fa fa-star "></span>-->
-  <%#end %>
-  <%#= count %>
-<!--  <br />-->
-
-<%# end %>
-<%# @post.ratings.each do |rating| %>
-
-  <%#= link_to "Edit ratings",post_rating_path(@post,rating) %>
-<!--  <br />-->
-<%# end %>
+      <%= link_to "Add Comments",new_post_comment_path(@post,@comment) %>
+    </div>
+    <div class="col-2 ms-3">
+      <strong>Tags:</strong>
+      <% @post.tags.each do |tag| %>
+        <%= link_to tag do %>
+          <p><%= tag.name %><p>
+        <%end %>
+      <%end %>
+    </div>
+      <div class="col-3">
 
 
-<%= link_to "Add ratings",new_post_rating_path(@post) %>
-<div>
-  <%= link_to "Edit this post", params[:topic_id].present? ? edit_topic_post_path(@topic,@post) : edit_post_path(@post) %> |
-  <%= link_to "Add Comments",new_post_comment_path(@post,@comment) %>
-  <%= link_to "Back to posts", params[:topic_id].present? ? topic_posts_path(@topic) : posts_path %>
+        <% @post.ratings.group(:star).count.each do |value,count| %>
 
-  <%= button_to "Destroy this post", params[:topic_id].present? ? topic_post_path(@topic,@post): post_path(@post), method: :delete %>
+          <% for i in (1..value) do %>
+            <span class="fa fa-star " style="color:orange"></span>
+          <%end %>
+          <% for i in (1..(5-value)) do %>
+            <span class="fa fa-star "></span>
+          <%end %>
+          <%= count %>
+          <br />
+
+        <% end %>
+
+
+
+        <%= link_to "Add ratings",new_post_rating_path(@post) %>
+      </div>
+    </div>
+      <!--<strong>Ratings</strong>-->
+      <!--<br />-->
+
+  </div>
+
+
+  <div class="mt-4">
+    <p>
+<!--      <strong>Body:</strong>-->
+      <%= @post.body %>
+    </p>
+  </div>
+
+</div>
+  <div class="position-relative mb-4">
+  <div class="position-relative bottom-0 start-0" >
+    <%= link_to "Edit this post", params[:topic_id].present? ? edit_topic_post_path(@topic,@post) : edit_post_path(@post) %> | <%= link_to "Back to posts", params[:topic_id].present? ? topic_posts_path(@topic) : posts_path %>
+  </div>
+  <div class="position-absolute bottom-0 start-50" >
+
+    <%= button_to "Destroy this post", params[:topic_id].present? ? topic_post_path(@topic,@post): post_path(@post), method: :delete %>
+  </div>
+  </div>
+</div>
 </div>

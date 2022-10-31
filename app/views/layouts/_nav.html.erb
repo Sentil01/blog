@@ -10,9 +10,21 @@
         <li class="nav-item ">
           <%= link_to "Topics",topics_path,class:"navbar-brand" %>
         </li>
-        <li class="nav-item">
+<!--        <li class="nav-item">-->
 
-          <%= link_to "Posts",posts_path,class:"navbar-brand" %>
+<!--        </li>-->
+        <li class="nav-item dropdown">
+           <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" class="navbar-brand">
+              Posts
+           </a>
+
+          <ul class="dropdown-menu">
+            <li><%= link_to "Posts",posts_path,class:"dropdown-item" %></li>
+            <li><%= link_to "New post", params[:topic_id].present? ? new_topic_post_path(@topic) : new_post_path , class:"dropdown-item"%> </li>
+            <li><a class="dropdown-item" href="#">Something else here</a></li>
+          </ul>
+
+
         </li>
         <li class="nav-item">
 
@@ -42,6 +54,7 @@
         <!--      <span class="navbar-text">-->
         <!--        Navbar text with an inline element-->
         <!--      </span>-->
+      </ul>
     </div>
   </div>
 </nav>

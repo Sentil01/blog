@@ -1,5 +1,4 @@
 class PostsController < ApplicationController
-  # load_and_authorize_resource
 
   before_action :authenticate_user!
   before_action :get_post
@@ -37,11 +36,13 @@ class PostsController < ApplicationController
 
   # GET /posts/1/edit
   def edit
+    authorize! :edit,@post
   end
 
   # POST /posts or /posts.json
   def create
     if params[:topic_id].present?
+
       @post = @topic.posts.build(post_params.except(:tags))
       create_or_delete_posts_tags(@post,params[:post][:tags])
       respond_to do |format|
@@ -85,7 +86,8 @@ class PostsController < ApplicationController
           format.json { render json: @post.errors, status: :unprocessable_entity }
         end
         end
-      else
+    else
+
         respond_to do |format|
           if @post.update(post_params.except(:tags))
             create_or_delete_posts_tags(@post,params[:post][:tags])
@@ -105,6 +107,7 @@ class PostsController < ApplicationController
 
   # DELETE /posts/1 or /posts/1.json
   def destroy
+    authorize! :destroy,@post
     @post.destroy
     if params[:topic_id].present?
       respond_to do |format|
@@ -162,10 +165,5 @@ class PostsController < ApplicationController
       end
 
     end
-  # rescue_from CanCan::AccessDenied do | exception |
-  #   respond_to do |format|
-  #     format.json { head :forbidden }
-  #     format.html { redirect_to posts_path, alert: exception.message }
-  #   end
-  # end
+
 end

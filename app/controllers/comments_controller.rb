@@ -1,5 +1,5 @@
 class CommentsController < ApplicationController
-  # load_and_authorize_resource
+
   before_action :get_comment
   before_action :set_comment, only: %i[ show edit update destroy ]
 
@@ -19,6 +19,7 @@ class CommentsController < ApplicationController
 
   # GET /comments/1/edit
   def edit
+    authorize! :edit,@comment
   end
 
   # POST /comments or /comments.json
@@ -51,6 +52,7 @@ class CommentsController < ApplicationController
 
   # DELETE /comments/1 or /comments/1.json
   def destroy
+    authorize! :destroy,@comment
     @comment.destroy
 
     respond_to do |format|
