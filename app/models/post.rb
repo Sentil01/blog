@@ -6,5 +6,6 @@ class Post < ApplicationRecord
   has_many :tags,through: :taggables
   has_many :ratings
   has_one_attached :cover_picture
-
+  has_many :posts_users_read_statuses
+  has_many :users, :through => :posts_users_read_statuses
 end

@@ -10,7 +10,12 @@
       <%= @post.title %>
     </p>
   </div>
-
+ <%if @read %>
+    <p>Read</p>
+  <%else %>
+    <p>Unread</p>
+    <% @post.users << current_user %>
+  <%end %>
   <div class="position-absolute top-0 end-0">
     <p>
       <strong>Created By:</strong>

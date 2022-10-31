@@ -21,6 +21,9 @@
       <strong>Created By:</strong>
       <%= post.user.email if post.user %>
     </p>
+
+    <%= post.ratings.average(:star) if post.ratings%>
+    <p>Comments (<%= post.comments.count(:id) if post.comments%>)</p>
     <% post.ratings.group(:star).count.each do |value,count| %>
 
       <% for i in (1..value) do %>

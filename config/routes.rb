@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   # devise_for :users
+  resources :posts_users_read_statuses
   devise_for :users
   devise_scope :user do
 

@@ -7,15 +7,15 @@
           <div class=" col">
             <%# if params[:topic_id].present? %>
               <%= render post %>
-
+               <% @read=PostsUsersReadStatus.where(post_id: post.id,user_id: current_user.id).last%>
+                  <%if @read %>
+                    <p>Read</p>
+                  <%else %>
+                    <p>Unread</p>
+                  <%end %>
 
           </div>
-
-
-
-
-
-            <%#else %>
+        <%#else %>
 
               <%#= render post %>
               <%# post.ratings.group(:star).count.each do |value,count| %>

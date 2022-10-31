@@ -3,25 +3,31 @@ class PostsController < ApplicationController
   before_action :authenticate_user!
   before_action :get_post
   before_action :set_post, only: %i[ show edit update destroy ]
+  # before_action :get_read
   # before_action :get_user
   # GET /posts or /posts.json
   def index
+    # @posts_users_read_status = PostsUsersReadStatus.new
+
+
     if params[:topic_id].present?
       @posts = @topic.posts.paginate(page: params[:page],per_page: 2)
     else
       @posts=Post.all.paginate(page: params[:page],per_page: 2)
 
     end
-
+    # @read=PostsUsersReadStatus.where(post_id: @post.id,user_id: current_user.id).last
   end
 
   # GET /posts/1 or /posts/1.json
   def show
+    # @posts_users_read_status = PostsUsersReadStatus.new
     if params[:topic_id].present?
       @post=@topic.posts.find(params[:id])
     else
       @post=Post.find(params[:id])
     end
+    @read=PostsUsersReadStatus.where(post_id: @post.id,user_id: current_user.id).last
   end
 
   # GET /posts/new
@@ -31,7 +37,7 @@ class PostsController < ApplicationController
     else
       @post=Post.new
     end
-
+    # @posts_users_read_status = PostsUsersReadStatus.new
   end
 
   # GET /posts/1/edit
@@ -152,6 +158,9 @@ class PostsController < ApplicationController
       end
 
     end
+  # def get_read
+  #   @read=PostsUsersReadStatus.where(post_id: @post.id,user_id: current_user.id).last
+  # end
   # def get_user
   #   @user=User.find(params[:@post.user_id])
   # end
