@@ -1,4 +1,20 @@
-class PostsUsersReadStatuses < ApplicationController
+class PostsUsersReadStatusesController < ApplicationController
+  skip_before_action :verify_authenticity_token
+  def index
+
+  end
+  def create
+    if PostsUsersReadStatus.find_by(user_id: current_user.id,post_id: params[:post_id])
+      @msg="Seen"
+    else
+      PostsUsersReadStatus.create(user_id: current_user.id,post_id: params[:post_id])
+      @msg="Unseen"
+    end
+    respond_to do |format|
+      format.js{render json: @msg.to_json}
+      format.html
+    end
+  end
   # before_action :posts_users_read_status_params
   # before_action :get_PostsUsersReadStatus
   # def new

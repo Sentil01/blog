@@ -1,3 +1,31 @@
+<script>
+  alert("hi")
+  console.log("from rails")
+  $(document).ready(function(){
+      el=document.querySelector(".read");
+
+      el1=document.querySelector(".read1");
+      $.ajax({
+          url: el.classList[1]+'/posts_users_read_statuses',
+          type: "post",
+          data:"",
+          dataType: 'json',
+          dataType: 'script',
+          success:function (response){
+              console.log("Success")
+              el1.innerHTML=response
+              return
+          },
+          error:function(response){
+              console.log("Failed")
+              el1.innerHTML=response
+              return
+          }
+
+      })
+  })
+</script>
+
 <p style="color: green"><%= notice %></p>
 <div class="container">
 <div class="position-relative ">
@@ -10,12 +38,15 @@
       <%= @post.title %>
     </p>
   </div>
- <%if @read %>
-    <p>Read</p>
-  <%else %>
-    <p>Unread</p>
-    <% @post.users << current_user %>
-  <%end %>
+  <div class="read <%=@post.id %>">
+    <p class="read1">Unseen</p>
+  </div>
+ <%#if @read %>
+<!--    <p>Read</p>-->
+  <%#else %>
+<!--    <p>Unread</p>-->
+    <%# @post.users << current_user %>
+  <%#end %>
   <div class="position-absolute top-0 end-0">
     <p>
       <strong>Created By:</strong>
