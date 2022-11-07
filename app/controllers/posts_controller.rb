@@ -16,6 +16,7 @@ class PostsController < ApplicationController
       @posts=Post.all.paginate(page: params[:page],per_page: 2)
 
     end
+
     # @read=PostsUsersReadStatus.where(post_id: @post.id,user_id: current_user.id).last
   end
 
