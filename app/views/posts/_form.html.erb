@@ -1,4 +1,4 @@
-<%= form_with(model:[@topic,post],local: false) do |form| %>
+<%= form_with(model:[@topic,post],local: false,:html => {:class => "form"}) do |form| %>
   <div class="modal-body">
     <% if post.errors.any? %>
       <div style="color: red">
@@ -40,7 +40,7 @@
   </div>
 
   <div class="modal-footer">
-    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
     <div class="actions">
       <%= form.submit %>
     </div>

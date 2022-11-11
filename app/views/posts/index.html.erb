@@ -1,11 +1,37 @@
 <!--<p style="color: green"><%#= notice %></p>-->
-<!--<script>-->
-<!--    import Rails from "@rails/ujs";-->
-<!--    Rails.start()-->
-<!--</script>-->
-<h1 class="text-center mt-4">Posts</h1>
+<style>
+    .loader {
+        border: 5px solid #f3f3f3;
+        -webkit-animation: spin 1s linear infinite;
+        animation: spin 1s linear infinite;
+        border-top: 5px solid #555;
+        border-radius: 50%;
+        width: 50px;
+        height: 50px;
+        position: relative;
+        left:47%;
+    }
+    /*.loader {*/
+    /*    border: 16px solid #f3f3f3; !* Light grey *!*/
+    /*    border-top: 16px solid #3498db; !* Blue *!*/
+    /*    border-radius: 50%;*/
+    /*    width: 120px;*/
+    /*    height: 120px;*/
+    /*    animation: spin 2s linear infinite;*/
+    /*}*/
 
+    @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
+    .hide{
+        display: none;
+    }
+</style>
+<h1 class="text-center mt-4">Posts</h1>
+<div class="loader hide"></div>
 <div class="container col-6 mt-4">
+
     <div id="posts" class="row" >
         <% @posts.each do |post| %>
           <div class=" col">
@@ -14,7 +40,7 @@
 
               <% @read=PostsUsersReadStatus.where(post_id: post.id,user_id: current_user.id).last%>
                <div class="seen">
-                 <%= javascript_pack_tag 'ajax' %>
+
                </div>
                <%# @read=PostsUsersReadStatus.where(post_id: post.id,user_id: current_user.id).last%>
                   <%#if @read %>
@@ -62,16 +88,75 @@
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <div class="newUserForm"></div>
+      <div class="newUserForm">
+        <%= render "form", post: @post %>
+
+      </div>
 
 
     </div>
   </div>
 </div>
-
-<%= link_to "New post", params[:topic_id].present? ? new_topic_post_path(@topic) : new_post_path,data: {bs_toggle: 'modal',bs_target: '#exampleModal',remote: true} %>
+<%#= link_to "New post", params[:topic_id].present? ? new_topic_post_path(@topic) : new_post_path %>
+<%= link_to "New post", params[:topic_id].present? ? new_topic_post_path(@topic) : new_post_path,class:"newbtn",data: {bs_toggle: 'modal',bs_target: '#exampleModal',remote: true} %>
 <%= will_paginate @posts %>
+<script>
+
+    const f = document.querySelector('form');
+    const loader=document.querySelector('.loader');
+    const newbtn=document.querySelector('.newbtn');
+    newbtn.addEventListener('click',function (){
+        loader.classList.toggle('hide');
+
+    });
+
+
+    async function handleSubmit(event) {
+        event.preventDefault();
+
+        console.log(event.target.action);
+        console.log(f.method);
+        let data = new FormData(event.target);
+        fetch(event.target.action, {
+            method: f.method,
+            body: data,
+            headers: {
+                'Accept': 'application/json'
+            }
+        }).then(response => {
+            console.log(response);
+            if (response.ok) {
+                console.log("Form Submitted");
+                document.querySelector('#exampleModal');
+                alert('Post Created successfully');
+                $('#exampleModal').modal('hide');
+                loader.classList.toggle('hide');
+                return response.json();
+
+                // f.reset()
+            } else {
+                response.json().then(data => {
+                    console.log(data.title[0])
+                    console.log(data)
+                    if (data.title[0]=="20 characters is the maximum allowed") {
+                        alert("20 characters is the maximum allowed");
+                        $('#exampleModal').modal('hide');
+                        loader.classList.toggle('hide');
+                    } else {
+                        console.log("Oops! There was a problem submitting your form")
+                    }
+                })
+            }
+        }).then(data => {
+            console.log(data)
+        // }).catch
+        // }(error=>{
+        //     console.log(error)
+        });
+    }
+    f.addEventListener("submit", handleSubmit)
+</script>

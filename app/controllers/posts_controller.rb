@@ -1,5 +1,5 @@
 class PostsController < ApplicationController
-
+  skip_before_action :verify_authenticity_token
   before_action :authenticate_user!
   before_action :get_post
   before_action :set_post, only: %i[ show edit update destroy ]
@@ -15,6 +15,11 @@ class PostsController < ApplicationController
     else
       @posts=Post.all.paginate(page: params[:page],per_page: 2)
 
+    end
+    if params[:topic_id].present?
+      @post = @topic.posts.build
+    else
+      @post=Post.new
     end
 
     # @read=PostsUsersReadStatus.where(post_id: @post.id,user_id: current_user.id).last
@@ -38,7 +43,7 @@ class PostsController < ApplicationController
     else
       @post=Post.new
     end
-    # @posts_users_read_status = PostsUsersReadStatus.new
+
   end
 
   # GET /posts/1/edit
@@ -54,11 +59,14 @@ class PostsController < ApplicationController
       create_or_delete_posts_tags(@post,params[:post][:tags])
       respond_to do |format|
         if @post.save
+          # format.js { render 'posts/show_updated_view'}
           format.html { redirect_to topic_posts_path(@topic), notice: "Post was successfully created." }
           format.json { render :show, status: :created, location: @post }
+
         else
           format.html { render :new, status: :unprocessable_entity }
-          format.json { render json: @post.errors, status: :unprocessable_entity }
+          format.json { render json: @post.errors.to_json, status: :unprocessable_entity }
+
         end
       end
     else
