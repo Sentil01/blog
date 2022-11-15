@@ -9,6 +9,9 @@
     <p>
       <%= link_to "Show this comment", post_comment_path(@post,comment) %>
     </p>
+    <p>
+      <%= link_to "Add User Ratings",new_comment_user_comment_rating_path(comment) %>
+    </p>
   <% end %>
 </div>
 

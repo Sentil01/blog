@@ -79,8 +79,10 @@
       <% @post.comments.each do |comment| %>
         <p>
           <%= comment.body %> | By: <%= comment.user.email if comment.user %>
+
         </p>
       <%end %>
+      <%= link_to "User Ratings",post_comments_path(@post,@comment) %>
       <%= link_to "Add Comments",new_post_comment_path(@post,@comment) %>
     </div>
     <div class="col-2 ms-3">
