@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  # resources :usercommentratings
   # devise_for :users
   # resources :posts_users_read_statuses
   post '/topics/:topic_id/posts/:post_id/posts_users_read_statuses',to: 'posts_users_read_statuses#create'
@@ -8,9 +9,8 @@ Rails.application.routes.draw do
 
     get '/users/sign_out' => 'devise/sessions#destroy'
   end
-  resources :user_comment_rating
   resources :comments do
-    resources :user_comment_rating
+    resources :usercommentratings
   end
   resources :posts do
     resources :ratings

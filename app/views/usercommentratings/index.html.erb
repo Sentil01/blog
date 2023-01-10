@@ -1,0 +1,19 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Usercommentratings</h1>
+
+<div id="usercommentratings">
+  <% @usercommentratings.each do |usercommentrating| %>
+    <%= render usercommentrating %>
+<!--    <p>-->
+      <%#= link_to "Show this usercommentrating", comment_usercommentrating_path(@comment,usercommentrating) %>
+<!--    </p>-->
+  <% end %>
+</div>
+
+<%= link_to "New usercommentrating", new_comment_usercommentrating_path(@comment) %>
+<div>
+  <%= link_to "Back to usercommentratings",comment_usercommentratings_path(@comment) %>
+</div>
+
+<%= link_to "Back to comments", post_comments_path(@comment.post_id,@comment) %>

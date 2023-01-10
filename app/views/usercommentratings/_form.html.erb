@@ -1,0 +1,32 @@
+<%= form_with(model: [@comment,usercommentrating]) do |form| %>
+  <% if usercommentrating.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(usercommentrating.errors.count, "error") %> prohibited this usercommentrating from being saved:</h2>
+
+      <ul>
+        <% usercommentrating.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :rating, style: "display: block" %>
+    <%= form.number_field :rating %>
+  </div>
+
+  <div>
+    <%= form.label :user_id, style: "display: block" %>
+    <%= form.text_field :user_id,value: current_user.id %>
+  </div>
+
+  <div>
+    <%= form.label :comment_id, style: "display: block" %>
+    <%= form.text_field :comment_id %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>

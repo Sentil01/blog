@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_11_12_070848) do
+ActiveRecord::Schema[7.0].define(version: 2023_01_10_063515) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -94,12 +94,14 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_12_070848) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "user_comment_ratings", force: :cascade do |t|
-    t.integer "user_id"
-    t.integer "comment_id"
+  create_table "usercommentratings", force: :cascade do |t|
+    t.integer "rating"
+    t.integer "user_id", null: false
+    t.integer "comment_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "star"
+    t.index ["comment_id"], name: "index_usercommentratings_on_comment_id"
+    t.index ["user_id"], name: "index_usercommentratings_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -121,4 +123,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_12_070848) do
   add_foreign_key "ratings", "posts"
   add_foreign_key "taggables", "posts"
   add_foreign_key "taggables", "tags"
+  add_foreign_key "usercommentratings", "comments"
+  add_foreign_key "usercommentratings", "users"
 end
