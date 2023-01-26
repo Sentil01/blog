@@ -13,7 +13,12 @@ class PostsController < ApplicationController
     if params[:topic_id].present?
       @posts = @topic.posts.paginate(page: params[:page],per_page: 2)
     else
-      @posts=Post.all.paginate(page: params[:page],per_page: 2)
+      # @posts = Post.all.paginate(page: params[:page],per_page: 2)
+      @search =DatePicker.new(params[:search])
+      @result = @search.scope
+      @posts=@result.paginate(page: params[:page],per_page: 2)
+
+
 
     end
     if params[:topic_id].present?

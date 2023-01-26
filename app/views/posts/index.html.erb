@@ -71,6 +71,14 @@
           </div>
 
         <% end %>
+      <div class="col",style="text-align:center">
+        <%= form_tag posts_path, method: :get do %>
+           <%= date_field_tag 'search[date_from]',@search.date_from %>
+           <%= date_field_tag 'search[date_to]',@search.date_to %>
+           <%= submit_tag "Search" %>
+        <% end %>
+
+      <div>
 
 
 
