@@ -73,8 +73,8 @@
         <% end %>
       <div class="col",style="text-align:center">
         <%= form_tag posts_path, method: :get do %>
-           <%= date_field_tag 'search[date_from]',@search.date_from %>
-           <%= date_field_tag 'search[date_to]',@search.date_to %>
+           <%= date_field_tag 'search[date_from]',Date.today-2 %>
+           <%= date_field_tag 'search[date_to]',Date.today %>
            <%= submit_tag "Search" %>
         <% end %>
 
