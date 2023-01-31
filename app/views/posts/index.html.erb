@@ -27,10 +27,34 @@
     .hide{
         display: none;
     }
+    .date{
+        margin-left: 50px;
+    }
+    .date-in{
+        margin-left: 500px;
+        margin-top: 30px;
+        margin-bottom: 30px;
+    }
+    .l{
+        margin-left:400px;
+        margin-top:40px;
+    }
 </style>
 <h1 class="text-center mt-4">Posts</h1>
 <div class="loader hide"></div>
+  <div class="date">
+    <div class="date-in">
+      <%= form_tag posts_path, method: :get do %>
+        <%= date_field_tag 'search[date_from]',Date.today-2 %>
+        <%= date_field_tag 'search[date_to]',Date.today %>
+        <%= submit_tag "Search" %>
+      <% end %>
+
+    </div>
+
+  <div>
 <div class="container col-6 mt-4">
+
 
     <div id="posts" class="row" >
         <% @posts.each do |post| %>
@@ -42,43 +66,13 @@
                <div class="seen">
 
                </div>
-               <%# @read=PostsUsersReadStatus.where(post_id: post.id,user_id: current_user.id).last%>
-                  <%#if @read %>
-<!--                    <p>Read</p>-->
-                  <%#else %>
-<!--                    <p>Unread</p>-->
-                  <%#end %>
 
           </div>
-        <%#else %>
 
-              <%#= render post %>
-              <%# post.ratings.group(:star).count.each do |value,count| %>
-
-                <%# for i in (1..value) do %>
-<!--                  <span class="fa fa-star"style="color:orange"></span>-->
-                <%#end %>
-                <%# for i in (1..(5-value)) do %>
-<!--                  <span class="fa fa-star "></span>-->
-                <%#end %>
-                <%#= count %>
-<!--                <br />-->
-              <%# end %>
-<!--              <p>-->
-                <%#= link_to "Show this post",post_path(post)%>
-<!--              </p>-->
-            <%#end %>
           </div>
 
         <% end %>
-      <div class="col",style="text-align:center">
-        <%= form_tag posts_path, method: :get do %>
-           <%= date_field_tag 'search[date_from]',Date.today-2 %>
-           <%= date_field_tag 'search[date_to]',Date.today %>
-           <%= submit_tag "Search" %>
-        <% end %>
 
-      <div>
 
 
 
@@ -110,8 +104,17 @@
   </div>
 </div>
 <%#= link_to "New post", params[:topic_id].present? ? new_topic_post_path(@topic) : new_post_path %>
-<%= link_to "New post", params[:topic_id].present? ? new_topic_post_path(@topic) : new_post_path,class:"newbtn",data: {bs_toggle: 'modal',bs_target: '#exampleModal',remote: true} %>
-<%= will_paginate @posts %>
+<div class="l">
+  <p>
+    <%= link_to "New post", params[:topic_id].present? ? new_topic_post_path(@topic) : new_post_path,class:"newbtn",data: {bs_toggle: 'modal',bs_target: '#exampleModal',remote: true} %>
+
+
+  </p>
+  <p>
+    <%= will_paginate @posts %>
+  </p>
+
+</div>
 <script>
 
     const f = document.querySelector('form');
